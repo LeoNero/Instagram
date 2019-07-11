@@ -21,14 +21,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     private List<Post> posts;
     private Context context;
 
-    public PostsAdapter(List<Post> posts) {
+    public PostsAdapter(Context context, List<Post> posts) {
+        this.context = context;
         this.posts = posts;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View postView = inflater.inflate(R.layout.item_post, viewGroup, false);

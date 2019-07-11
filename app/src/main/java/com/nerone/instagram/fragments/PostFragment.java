@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.nerone.instagram.R;
-import com.nerone.instagram.activities.HomeActivity;
 import com.nerone.instagram.models.Post;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -102,9 +102,9 @@ public class PostFragment extends Fragment {
     }
 
     private void returnToHome() {
-        Intent intent = new Intent(getContext(), HomeActivity.class);
-        startActivity(intent);
-        //finish();
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
     }
 
     private void launchCamera() {
