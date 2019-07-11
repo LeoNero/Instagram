@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nerone.instagram.R;
+import com.nerone.instagram.fragments.HomeFragment;
 import com.nerone.instagram.fragments.PostFragment;
+import com.nerone.instagram.fragments.ProfileFragment;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+        setInitialFragment();
         setBottomNavigation();
     }
 
@@ -47,15 +50,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setInitialFragment() {
+        goToHome();
+        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+    }
+
     private void setBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener((item) -> {
             switch (item.getItemId()) {
                 case R.id.action_home:
+                    goToHome();
                     break;
                 case R.id.action_post:
                     goToAddPost();
                     break;
                 case R.id.action_profile:
+                    goToProfile();
                     break;
                 default:
                     break;
@@ -67,9 +77,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void goToHome() {
+        fragment = new HomeFragment();
+    }
+
     private void goToAddPost() {
         fragment = new PostFragment();
-        bottomNavigationView.setSelectedItemId(R.id.action_post);
+    }
+
+    private void goToProfile() {
+        fragment = new ProfileFragment();
     }
 
     private void logout() {
