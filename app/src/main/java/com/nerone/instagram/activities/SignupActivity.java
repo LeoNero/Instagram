@@ -47,7 +47,7 @@ public class SignupActivity extends AppCompatActivity {
 
         user.signUpInBackground((error) -> {
             if (error == null) {
-                Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             } else {

@@ -1,4 +1,4 @@
-package com.nerone.instagram.activities;
+package com.nerone.instagram.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,24 +7,34 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.nerone.instagram.R;
+import com.nerone.instagram.activities.HomeActivity;
 import com.nerone.instagram.models.Post;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.File;
 
-public class PostActivity extends AppCompatActivity {
-    public final String TAG = "InstagramApp";
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
+public class PostFragment extends Fragment {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
+
+    public final String TAG = "PostFragment";
     public String photoFileName = "photo.jpg";
 
     private ImageView ivPhotoTaken;
@@ -33,14 +43,19 @@ public class PostActivity extends AppCompatActivity {
 
     private File photoFile;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_post, container, false);
+    }
 
-        ivPhotoTaken = findViewById(R.id.ivPhotoTaken);
-        etDescription = findViewById(R.id.etDescription);
-        btnSubmitPost = findViewById(R.id.btnSubmitPost);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ivPhotoTaken = view.findViewById(R.id.ivPhotoTaken);
+        etDescription = view.findViewById(R.id.etDescription);
+        btnSubmitPost = view.findViewById(R.id.btnSubmitPost);
 
         setOnClickBtnSubmitPost();
         launchCamera();
@@ -57,7 +72,7 @@ public class PostActivity extends AppCompatActivity {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 ivPhotoTaken.setImageBitmap(takenImage);
             } else {
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -87,9 +102,9 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void returnToHome() {
-        Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+        Intent intent = new Intent(getContext(), HomeActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     private void launchCamera() {
@@ -97,16 +112,16 @@ public class PostActivity extends AppCompatActivity {
 
         photoFile = getPhotoFileUri(photoFileName);
 
-        Uri fileProvider = FileProvider.getUriForFile(PostActivity.this, "com.nerone.instagram.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.nerone.instagram.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
     }
 
     private File getPhotoFileUri(String fileName) {
-        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+        File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
             Log.d(TAG, "Failed to create directory");

@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToHome() {
-        final Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.MainActivity"></activity>
         <activity
             android:name=".activities.PostDetailsActivity"
             android:label="@string/title_activity_post_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activities.PostActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SignupActivity" />
         <activity
             android:name=".activities.HomeActivity"
