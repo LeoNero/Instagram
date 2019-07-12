@@ -5,7 +5,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +18,7 @@ public class PostDetailsActivity extends AppCompatActivity {
     private ImageView ivPhoto;
     private TextView tvDescription;
     private TextView tvTimestamp;
+    private FloatingActionButton fab;
 
     private String postId;
     private Post post;
@@ -32,20 +32,16 @@ public class PostDetailsActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvDescription);
         tvTimestamp = findViewById(R.id.tvTimestamp);
 
+        ivPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab = findViewById(R.id.fab);
 
         postId = getIntent().getStringExtra("post_id");
         fetchPost();
+        setFabClick();
     }
 
     private void fetchPost() {
@@ -68,5 +64,12 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         String createdAt = post.getCreatedAt().toString();
         tvTimestamp.setText(Time.getRelativeTimeAgo(createdAt));
+    }
+
+    private void setFabClick() {
+        fab.setOnClickListener((view) -> {
+             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                     .setAction("Action", null).show();
+        });
     }
 }

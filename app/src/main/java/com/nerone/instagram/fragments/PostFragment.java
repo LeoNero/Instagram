@@ -60,6 +60,8 @@ public class PostFragment extends Fragment {
         btnSubmitPost = view.findViewById(R.id.btnSubmitPost);
         pbLoading = view.findViewById(R.id.pbLoading);
 
+        ivPhotoTaken.setScaleType(ImageView.ScaleType.FIT_XY);
+
         hideOtherComponents();
         setOnClickBtnSubmitPost();
         launchCamera();

@@ -81,6 +81,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
 
+            ivPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
+
             itemView.setOnClickListener(this);
         }
 
