@@ -2,4 +2,6 @@
     <string name="app_name">Instagram</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_post_details">PostDetailsActivity</string>
+    <string name="signup">Signup</string>
+    <string name="login">Login</string>
 </resources>

@@ -22,7 +22,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         etEmail = findViewById(R.id.etEmail);
-        etUsername = findViewById(R.id.tvUsername);
+        etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnSignup = findViewById(R.id.btnSignup);
 
