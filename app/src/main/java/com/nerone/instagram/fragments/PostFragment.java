@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.nerone.instagram.R;
@@ -40,6 +41,7 @@ public class PostFragment extends Fragment {
     private ImageView ivPhotoTaken;
     private EditText etDescription;
     private Button btnSubmitPost;
+    private ProgressBar pbLoading;
 
     private File photoFile;
 
@@ -56,13 +58,17 @@ public class PostFragment extends Fragment {
         ivPhotoTaken = view.findViewById(R.id.ivPhotoTaken);
         etDescription = view.findViewById(R.id.etDescription);
         btnSubmitPost = view.findViewById(R.id.btnSubmitPost);
+        pbLoading = view.findViewById(R.id.pbLoading);
 
+        hideOtherComponents();
         setOnClickBtnSubmitPost();
         launchCamera();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        showOtherComponents();
+
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_CANCELED) {
                 returnToHome();
@@ -77,8 +83,34 @@ public class PostFragment extends Fragment {
         }
     }
 
+    private void hideProgressBar() {
+        pbLoading.setVisibility(ProgressBar.INVISIBLE);
+
+        showOtherComponents();
+    }
+
+    private void showProgressBar() {
+        pbLoading.setVisibility(ProgressBar.VISIBLE);
+
+        hideOtherComponents();
+    }
+
+    private void showOtherComponents() {
+        ivPhotoTaken.setVisibility(View.VISIBLE);
+        etDescription.setVisibility(View.VISIBLE);
+        btnSubmitPost.setVisibility(View.VISIBLE);
+    }
+
+    private void hideOtherComponents() {
+        ivPhotoTaken.setVisibility(View.INVISIBLE);
+        etDescription.setVisibility(View.INVISIBLE);
+        btnSubmitPost.setVisibility(View.INVISIBLE);
+    }
+
     private void setOnClickBtnSubmitPost() {
         btnSubmitPost.setOnClickListener((view) -> {
+            showProgressBar();
+
             ParseUser currentUser = ParseUser.getCurrentUser();
             final String description = etDescription.getText().toString();
             addPost(currentUser, description);
@@ -98,6 +130,8 @@ public class PostFragment extends Fragment {
            } else {
                error.printStackTrace();
            }
+
+           hideProgressBar();
         });
     }
 

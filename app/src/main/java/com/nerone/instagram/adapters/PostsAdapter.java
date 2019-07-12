@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.nerone.instagram.R;
 import com.nerone.instagram.activities.PostDetailsActivity;
 import com.nerone.instagram.models.Post;
+import com.nerone.instagram.utils.Time;
 
 import java.util.List;
 
@@ -43,6 +44,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         Post post = posts.get(position);
 
         holder.tvDescription.setText(post.getDescription());
+        holder.tvCreatedAt.setText(Time.getRelativeTimeAgo(post.getCreatedAt().toString()));
+        holder.tvUsername.setText(post.getUser().getUsername());
 
         Glide.with(context)
                 .load(post.getImage().getUrl())
@@ -67,12 +70,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView ivPhoto;
         TextView tvDescription;
+        TextView tvUsername;
+        TextView tvCreatedAt;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             ivPhoto = itemView.findViewById(R.id.ivPhoto);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
 
             itemView.setOnClickListener(this);
         }
