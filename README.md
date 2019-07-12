@@ -46,7 +46,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-![Walkthrough](walk.gif)
+![Walkthrough](https://github.com/LeoNero/Instagram/blob/master/Kapture%202019-07-11%20at%2019.41.12.gif)
 
 ## Credits
 
